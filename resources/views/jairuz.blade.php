@@ -6,6 +6,9 @@
     <!-- ADDED FOR CSRF AJAX SECURITY VERIFICATION -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Shantha Motors - Procurement System</title>
+
+//testing
+
     <style>
         * {
             box-sizing: border-box;

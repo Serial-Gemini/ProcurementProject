@@ -75,20 +75,7 @@
             <div class="w-full">
                 
                 <!-- PAGE 1: PO LIST -->
-                <div id="page-po" class="flex flex-col gap-4">
-                    <div class="bg-slate-900/80 backdrop-blur-md border border-slate-800 rounded-xl p-6 shadow-2xl">
-                        <div class="overflow-hidden rounded-xl border border-slate-800 bg-slate-950/50">
-                            <table class="w-full text-left border-collapse text-sm">
-                                <thead>
-                                    <tr class="border-b border-slate-800 bg-slate-900/50 text-xs font-bold uppercase tracking-wider text-slate-400">
-                                        <th class="p-4">PO Code</th>
-                                        <th class="p-4">Vendor Partner</th>
-                                        <th class="p-4">Requisition Link</th>
-                                        <th class="p-4">Aggregate Cost</th>
-                                        <th class="p-4">Delivery Due</th>
-                                        <th class="p-4">State</th>
-                                    </tr>
-                                </thead>
+               
                                 <tbody class="divide-y divide-slate-800/50">
                                     @forelse($purchaseOrders ?? [] as $po)
                                         <tr class="hover:bg-slate-900/30 transition-all">

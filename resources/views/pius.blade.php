@@ -382,13 +382,7 @@
 
     <div class="sidebar">
         <div>
-            <div class="brand-block">
-                <svg class="brand-logo-svg" viewBox="0 0 100 100">
-                    <path d="M50,15 C55,35 75,30 90,40 C75,55 60,45 50,75 C40,45 25,55 10,40 C25,30 45,35 50,15 Z" />
-                </svg>
-                <div class="brand-name">Shantha</div>
-                <div class="brand-sub">Motors</div>
-            </div>
+            
 
             <div class="nav-list">
                 <a href="/mari" class="nav-link">

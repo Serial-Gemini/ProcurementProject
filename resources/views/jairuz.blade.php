@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- ADDED FOR CSRF AJAX SECURITY VERIFICATION -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Shantha Motors - Procurement System</title>
 
@@ -34,6 +33,7 @@
 
         .sidebar {
             width: 250px;
+            min-width: 250px;
             background-color: #0F2A4A;
             padding: 30px 20px;
             display: flex;
@@ -131,19 +131,6 @@
             cursor: pointer;
         }
 
-        .btn-theme {
-            width: 100%;
-            background-color: transparent;
-            border: 1px solid #5627ab;
-            color: #bfa1fc;
-            padding: 10px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: bold;
-            text-align: center;
-            cursor: pointer;
-        }
-
         .workspace {
             flex: 1;
             background: linear-gradient(rgba(30, 17, 69, 0.85), rgba(30, 17, 69, 0.95)), 
@@ -151,25 +138,25 @@
             background-size: cover;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             height: 100%;
             overflow-y: auto;
             padding: 40px 20px;
         }
 
-        /* PROPORTIONALLY OPTIMIZED FLOATING CONTAINER CARD */
         .workspace-card {
-            width: 65%;
-            max-width: 1000px;
-            min-height: 780px;
+            width: 90%;
+            max-width: 900px;
+            min-height: 580px;
             background-color: rgba(15, 42, 74, 0.95);
             border: 1px solid #3d2382;
             border-radius: 16px;
-            padding: 35px;
+            padding: 30px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 
                         0 0 30px rgba(123, 78, 194, 0.15);
             display: flex;
             flex-direction: column;
+            margin-bottom: 40px;
         }
 
         .main-header {
@@ -214,34 +201,81 @@
             color: #5c448f;
         }
 
+        .tab-content-view {
+            min-height: 380px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-type-toggle {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .type-toggle-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            border: 1px solid #5627ab;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+
+        .toggle-active {
+            background-color: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+
+        .toggle-inactive {
+            background-color: #120727;
+            color: #bfa1fc;
+        }
+
         .form-section {
             display: flex;
             flex-direction: column;
-            gap: 20px;
         }
 
         .form-title {
             background-color: #0b041d;
             color: white;
             text-align: center;
-            padding: 8px;
+            padding: 12px;
             font-size: 14px;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
-            border-radius: 4px;
+            border-radius: 6px;
+            margin-bottom: 20px;
         }
 
         .form-row {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
         }
 
         .form-row-2 {
             display: grid;
             grid-template-columns: 2fr 1fr;
-            gap: 20px;
+            gap: 15px;
+        }
+
+        .form-row-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row-split {
+                grid-template-columns: 1fr;
+            }
         }
 
         .form-group {
@@ -264,6 +298,40 @@
             font-size: 14px;
             color: #333;
             outline: none;
+            width: 100%;
+        }
+
+        .worker-entry-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr auto;
+            gap: 8px;
+            margin-bottom: 8px;
+            align-items: center;
+        }
+
+        .btn-add-worker {
+            background-color: #10b981;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            align-self: flex-start;
+            margin-top: 4px;
+        }
+
+        .btn-remove-worker {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            width: 35px;
+            height: 38px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
         }
 
         .action-row {
@@ -298,7 +366,6 @@
             cursor: pointer;
         }
 
-        /* ACCORDION DROPDOWN STYLES WITH INVERTED CARET */
         .dropdown-item {
             background-color: rgba(11, 4, 29, 0.9);
             border: 1px solid #2e1762;
@@ -327,6 +394,27 @@
             background-color: #1a0b3a;
         }
 
+        .status-dot {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
+            min-height: 20px;
+            border-radius: 50%;
+            margin-right: 12px;
+            font-size: 11px;
+            font-weight: bold;
+            color: #ffffff;
+            flex-shrink: 0;
+            vertical-align: middle;
+        }
+
+        .dot-pending { background-color: #f59e0b; }
+        .dot-approved { background-color: #10b981; }
+        .dot-rejected { background-color: #ef4444; }
+
         .dropdown-content {
             padding: 20px;
             border-top: 1px solid #2e1762;
@@ -352,6 +440,14 @@
         .info-val {
             color: white;
             margin-top: 3px;
+        }
+
+        .workers-list-box {
+            background: rgba(255,255,255,0.05);
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 5px;
+            font-size: 12px;
         }
 
         .status-text-display {
@@ -421,15 +517,24 @@
             text-align: center;
             color: #bfa1fc;
             font-size: 16px;
-            padding: 40px 20px;
+            padding: 100px 20px;
             font-weight: 500;
+        }
+
+        .empty-state-text {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 250px;
+            color: #7b4ec2;
+            font-weight: bold;
+            font-size: 15px;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        
         <!-- SIDEBAR -->
         <div class="sidebar">
             <div style="width: 100%;">
@@ -464,17 +569,15 @@
 
         <!-- MAIN WORKSPACE -->
         <div class="workspace">
-            
-            <!-- FLOATING WORKSPACE CONTAINER -->
             <div class="workspace-card">
-                
                 <div class="main-header" id="moduleMainTitle">
                     Purchase Requisition and Approval
                 </div>
 
-                <!-- 1. ACTIVE WORKING INTERFACE: REQUISITION MODULE -->
+                <!-- REQUISITION MODULE VIEW -->
                 <div id="moduleView-requisition" style="display: block;">
-                    <!-- EMPLOYEE SUB-DOMAIN PANEL -->
+                    
+                    <!-- EMPLOYEE / REQUESTER SUB-DOMAIN PANEL -->
                     <div id="employeeDomainPanel" style="display: block;">
                         <div class="tab-bar">
                             <button class="tab-btn tab-active" id="empTab-form" onclick="switchEmployeeTab('form')">Request</button>
@@ -483,47 +586,56 @@
                             <button class="tab-btn tab-inactive" id="empTab-rejected" onclick="switchEmployeeTab('rejected')">Rejected</button>
                         </div>
 
-                        <!-- Input Sub-form View -->
-                        <div id="empView-form" style="display: block;" class="form-section">
-                            <div class="form-title">Employee Request Form</div>
+                        <!-- INPUT SUB-FORM VIEW -->
+                        <div id="empView-form" style="display: block;" class="form-section tab-content-view">
                             
-                            <form action="{{ route('requisition.store') }}" method="POST">
+                            <div class="form-title">Employee/Management Request Form</div>
+
+                            <div class="form-type-toggle">
+                                <button type="button" class="type-toggle-btn toggle-active" id="btnFormTypeIndividual" onclick="selectFormType('individual')">Individual Request Form</button>
+                                <button type="button" class="type-toggle-btn toggle-inactive" id="btnFormTypeManagement" onclick="selectFormType('management')">Management Request Form</button>
+                            </div>
+
+                            <!-- INDIVIDUAL EMPLOYEE REQUEST FORM -->
+                            <form id="individualForm" action="{{ route('requisitions.store') }}" method="POST">
                                 @csrf
+                                <input type="hidden" name="form_type" value="individual">
+                                <input type="hidden" name="status" value="Pending">
                                 <div style="display: flex; flex-direction: column; gap: 15px;">
                                     <div class="form-row">
                                         <div class="form-group">
                                             <label>First Name</label>
-                                            <input type="text" id="field_first_name" name="first_name" class="form-control" placeholder="First Name" required>
+                                            <input type="text" name="first_name" class="form-control" placeholder="First Name" required>
                                         </div>
                                         <div class="form-group">
                                             <label>Last Name</label>
-                                            <input type="text" id="field_last_name" name="last_name" class="form-control" placeholder="Last Name" required>
+                                            <input type="text" name="last_name" class="form-control" placeholder="Last Name" required>
                                         </div>
                                         <div class="form-group">
                                             <label>Employee ID</label>
-                                            <input type="text" id="field_employee_id" name="employee_id" class="form-control" placeholder="Employee ID" required>
+                                            <input type="text" name="employee_id" class="form-control" placeholder="EMP-12345" required>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label>Employee Request/s</label>
-                                        <input type="text" id="field_item_request" name="item_request" class="form-control" placeholder="e.g., 90 - 120hz Monitor" required>
+                                        <input type="text" name="item_request" class="form-control" placeholder="e.g., 90 - 120hz Monitor" required>
                                     </div>
 
                                     <div class="form-row-2">
                                         <div class="form-group">
                                             <label>Quantity</label>
-                                            <input type="number" id="field_quantity" name="quantity" class="form-control" placeholder="3" required>
+                                            <input type="number" name="quantity" class="form-control" placeholder="3" required>
                                         </div>
                                         <div class="form-group">
                                             <label>Cost</label>
-                                            <input type="text" id="field_cost" name="cost" class="form-control" placeholder="$850" required>
+                                            <input type="text" name="cost" class="form-control" placeholder="$850" required>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label>Reason for Request/s / Additional Comments</label>
-                                        <textarea id="field_comments" name="comments" class="form-control" style="height: 90px; resize: none;" placeholder="e.g., Stock monitor maxes out at 60Hz."></textarea>
+                                        <textarea name="comments" class="form-control" style="height: 90px; resize: none;" placeholder="e.g., Stock monitor maxes out at 60Hz."></textarea>
                                     </div>
 
                                     <div class="action-row">
@@ -532,11 +644,75 @@
                                     </div>
                                 </div>
                             </form>
+
+                            <!-- MANAGEMENT REQUEST FORM -->
+                            <form id="managementForm" action="{{ route('requisitions.store') }}" method="POST" style="display: none;">
+                                @csrf
+                                <input type="hidden" name="form_type" value="management">
+                                <input type="hidden" name="status" value="Pending">
+                                <div style="display: flex; flex-direction: column; gap: 15px;">
+                                    
+                                    <div class="form-row-split">
+                                        <div class="form-group">
+                                            <label>Department</label>
+                                            <select name="department" class="form-control" required>
+                                                <option value="" disabled selected>Select Department</option>
+                                                <option value="Customer Service/Helpdesk">Customer Service/Helpdesk</option>
+                                                <option value="Sales and Customer Support">Sales and Customer Support</option>
+                                                <option value="E-Commerce Integration">E-Commerce Integration</option>
+                                                <option value="Inventory & Warehouse Management System">Inventory & Warehouse Management System</option>
+                                                <option value="Supply Chain Management System">Supply Chain Management System</option>
+                                                <option value="Procurement(Purchasing)">Procurement(Purchasing)</option>
+                                                <option value="Finance and Accounting">Finance and Accounting</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Management Worker(s) / Employee(s)</label>
+                                            <div id="workersContainer">
+                                                <div class="worker-entry-row">
+                                                    <input type="text" name="workers[0][first_name]" class="form-control" placeholder="First Name" required>
+                                                    <input type="text" name="workers[0][last_name]" class="form-control" placeholder="Last Name" required>
+                                                    <input type="text" name="workers[0][employee_id]" class="form-control" placeholder="EMP-12345" required>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn-add-worker" onclick="addWorkerInputRow()">+ Add Worker</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Management Request/s</label>
+                                        <input type="text" name="item_request" class="form-control" placeholder="e.g., Heavy-Duty Hydraulic Lift Equipment" required>
+                                    </div>
+
+                                    <div class="form-row-2">
+                                        <div class="form-group">
+                                            <label>Quantity</label>
+                                            <input type="number" name="quantity" class="form-control" placeholder="10" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Cost</label>
+                                            <input type="text" name="cost" class="form-control" placeholder="$12,000" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Reason for Request/s / Additional Comments</label>
+                                        <textarea name="comments" class="form-control" style="height: 90px; resize: none;" placeholder="e.g., Required for system operational upgrade across department."></textarea>
+                                    </div>
+
+                                    <div class="action-row">
+                                        <button type="reset" class="btn-cancel">Cancel</button>
+                                        <button type="submit" class="btn-submit">Request</button>
+                                    </div>
+                                </div>
+                            </form>
+
                         </div>
 
-                        <div id="empView-pending" style="display: none;"></div>
-                        <div id="empView-approved" style="display: none;"></div>
-                        <div id="empView-rejected" style="display: none;"></div>
+                        <div id="empView-pending" style="display: none;" class="tab-content-view"></div>
+                        <div id="empView-approved" style="display: none;" class="tab-content-view"></div>
+                        <div id="empView-rejected" style="display: none;" class="tab-content-view"></div>
                     </div>
 
                     <!-- MANAGER SUB-DOMAIN PANEL -->
@@ -547,79 +723,98 @@
                             <button class="tab-btn tab-inactive" id="mgrTab-rejected" onclick="switchManagerTab('rejected')">Rejected</button>
                         </div>
                         
-                        <div id="mgrView-requests" style="display: block;"></div>
-                        <div id="mgrView-approved" style="display: none;"></div>
-                        <div id="mgrView-rejected" style="display: none;"></div>
+                        <div id="mgrView-requests" style="display: block;" class="tab-content-view"></div>
+                        <div id="mgrView-approved" style="display: none;" class="tab-content-view"></div>
+                        <div id="mgrView-rejected" style="display: none;" class="tab-content-view"></div>
                     </div>
-                </div>
-
-                <!-- ALTERNATE MODULE ROUTING TARGET PLACES -->
-                <div id="moduleView-supplier" style="display: none;" class="placeholder-text">
-                    Supplier Database records interface configuration viewport layout.
-                </div>
-                
-                <div id="moduleView-po" style="display: none;" class="placeholder-text">
-                    Generated Purchase Order Ledger listings tracking index interface.
-                </div>
-                
-                <div id="moduleView-matching" style="display: none;" class="placeholder-text">
-                    Goods Receipt documents and Voucher Invoices matching checklist layout matrix.
                 </div>
 
             </div>
         </div>
     </div>
 
+    <!-- JAVASCRIPT LOGIC -->
     <script>
         let appDataset = @json($requisitions ?? []);
-        let activeModule = 'employee';
+        let workerIndexCounter = 1;
 
-        function switchModule(targetModule) {
-            const moduleTitles = {
-                'requisition': 'Purchase Requisition and Approval',
-                'supplier': 'Supplier Management',
-                'po': 'Purchase Order Management',
-                'matching': 'Goods Receipt and Invoice Matching'
-            };
+        // On Page Load: Check if user was previously in Manager Domain
+        document.addEventListener('DOMContentLoaded', () => {
+            const activeDomain = sessionStorage.getItem('activeDomain');
+            if (activeDomain === 'manager') {
+                showManagerDomain();
+            } else {
+                renderEmployeeContent();
+            }
+        });
 
-            ['requisition', 'supplier', 'po', 'matching'].forEach(mod => {
-                const btn = document.getElementById('nav-' + mod);
-                const view = document.getElementById('moduleView-' + mod);
-                
-                if(mod === targetModule) {
-                    btn.className = "sidebar-btn btn-active";
-                    view.style.display = "block";
-                } else {
-                    btn.className = "sidebar-btn btn-inactive";
-                    view.style.display = "none";
-                }
-            });
+        function selectFormType(type) {
+            const btnInd = document.getElementById('btnFormTypeIndividual');
+            const btnMgmt = document.getElementById('btnFormTypeManagement');
+            const formInd = document.getElementById('individualForm');
+            const formMgmt = document.getElementById('managementForm');
 
-            document.getElementById('moduleMainTitle').innerText = moduleTitles[targetModule];
-            document.getElementById('domainToggleBtn').style.display = (targetModule === 'requisition') ? 'block' : 'none';
+            if (type === 'individual') {
+                btnInd.className = 'type-toggle-btn toggle-active';
+                btnMgmt.className = 'type-toggle-btn toggle-inactive';
+                formInd.style.display = 'block';
+                formMgmt.style.display = 'none';
+            } else {
+                btnInd.className = 'type-toggle-btn toggle-inactive';
+                btnMgmt.className = 'type-toggle-btn toggle-active';
+                formInd.style.display = 'none';
+                formMgmt.style.display = 'block';
+            }
+        }
+
+        function addWorkerInputRow() {
+            const container = document.getElementById('workersContainer');
+            const newRow = document.createElement('div');
+            newRow.className = 'worker-entry-row';
+            newRow.id = `workerRow_${workerIndexCounter}`;
+            newRow.innerHTML = `
+                <input type="text" name="workers[${workerIndexCounter}][first_name]" class="form-control" placeholder="First Name" required>
+                <input type="text" name="workers[${workerIndexCounter}][last_name]" class="form-control" placeholder="Last Name" required>
+                <input type="text" name="workers[${workerIndexCounter}][employee_id]" class="form-control" placeholder="EMP-12345" required>
+                <button type="button" class="btn-remove-worker" onclick="removeWorkerInputRow('workerRow_${workerIndexCounter}')">&times;</button>
+            `;
+            container.appendChild(newRow);
+            workerIndexCounter++;
+        }
+
+        function removeWorkerInputRow(rowId) {
+            const row = document.getElementById(rowId);
+            if (row) row.remove();
+        }
+
+        function showManagerDomain() {
+            document.getElementById('employeeDomainPanel').style.display = 'none';
+            document.getElementById('managerDomainPanel').style.display = 'block';
+            document.getElementById('domainToggleBtn').innerText = 'SWITCH TO EMPLOYEE DOMAIN';
+            sessionStorage.setItem('activeDomain', 'manager');
+            renderManagerContent();
+        }
+
+        function showEmployeeDomain() {
+            document.getElementById('employeeDomainPanel').style.display = 'block';
+            document.getElementById('managerDomainPanel').style.display = 'none';
+            document.getElementById('domainToggleBtn').innerText = 'SWITCH TO MANAGER DOMAIN';
+            sessionStorage.setItem('activeDomain', 'employee');
+            renderEmployeeContent();
         }
 
         function toggleDomainView() {
             const employeePanel = document.getElementById('employeeDomainPanel');
-            const managerPanel = document.getElementById('managerDomainPanel');
-            const toggleBtn = document.getElementById('domainToggleBtn');
-
             if (employeePanel.style.display === 'block') {
-                employeePanel.style.display = 'none';
-                managerPanel.style.display = 'block';
-                toggleBtn.innerText = 'SWITCH TO EMPLOYEE DOMAIN';
-                renderManagerContent();
+                showManagerDomain();
             } else {
-                employeePanel.style.display = 'block';
-                managerPanel.style.display = 'none';
-                toggleBtn.innerText = 'SWITCH TO MANAGER DOMAIN';
-                renderEmployeeContent();
+                showEmployeeDomain();
             }
         }
 
         function switchEmployeeTab(tabName) {
             ['form', 'pending', 'approved', 'rejected'].forEach(t => {
-                document.getElementById('empView-' + t).style.display = (t === tabName) ? 'block' : 'none';
+                document.getElementById('empView-' + t).style.display = (t === tabName) ? 'flex' : 'none';
                 document.getElementById('empTab-' + t).className = (t === tabName) ? "tab-btn tab-active" : "tab-btn tab-inactive";
             });
             if(tabName !== 'form') renderEmployeeContent();
@@ -627,7 +822,7 @@
 
         function switchManagerTab(tabName) {
             ['requests', 'approved', 'rejected'].forEach(t => {
-                document.getElementById('mgrView-' + t).style.display = (t === tabName) ? 'block' : 'none';
+                document.getElementById('mgrView-' + t).style.display = (t === tabName) ? 'flex' : 'none';
                 document.getElementById('mgrTab-' + t).className = (t === tabName) ? "tab-btn tab-active" : "tab-btn tab-inactive";
             });
             renderManagerContent();
@@ -638,6 +833,26 @@
             target.style.display = (target.style.display === 'block') ? 'none' : 'block';
         }
 
+        function getStatusBadge(status) {
+            if (status === 'Pending') {
+                return `<span class="status-dot dot-pending">&#8226;</span>`;
+            }
+            if (status === 'Approved') {
+                return `<span class="status-dot dot-approved">&#10003;</span>`;
+            }
+            if (status === 'Rejected') {
+                return `<span class="status-dot dot-rejected">&#10005;</span>`;
+            }
+            return `<span class="status-dot dot-pending">&#8226;</span>`;
+        }
+
+        function getAccordionTitle(item) {
+            if (item.form_type === 'management') {
+                return `Management Request: ${escapeHTML(item.item_request)}`;
+            }
+            return `Employee Request: ${escapeHTML(item.item_request)}`;
+        }
+
         function renderEmployeeContent() {
             const groups = ['Pending', 'Approved', 'Rejected'];
             groups.forEach(statusType => {
@@ -645,20 +860,33 @@
                 const items = appDataset.filter(d => d.status === statusType);
 
                 if(items.length === 0) {
-                    targetView.innerHTML = `<div style="text-align:center; color:#5c448f; padding:20px; font-weight:bold;">No items matching status: ${statusType}</div>`;
+                    targetView.innerHTML = `<div class="empty-state-text">No items matching status: ${statusType}</div>`;
                     return;
                 }
 
                 targetView.innerHTML = items.map(item => `
                     <div class="dropdown-item">
                         <button class="dropdown-trigger" onclick="toggleAccordion('empCollapse-${item.id}')">
-                            <span>Request Entry #${item.id} - ${escapeHTML(item.item_request)}</span>
+                            <span style="display: flex; align-items: center;">
+                                ${getStatusBadge(item.status)}
+                                <b>${getAccordionTitle(item)}</b>
+                            </span>
                             <span>&#9660;</span>
                         </button>
                         <div class="dropdown-content" id="empCollapse-${item.id}">
                             <div class="info-grid">
-                                <div><div class="info-label">Full Name</div><div class="info-val">${escapeHTML(item.first_name)} ${escapeHTML(item.last_name)}</div></div>
-                                <div><div class="info-label">Employee ID</div><div class="info-val">${escapeHTML(item.employee_id)}</div></div>
+                                ${item.form_type === 'management' ? `
+                                    <div><div class="info-label">Department</div><div class="info-val">${escapeHTML(item.department)}</div></div>
+                                    <div style="grid-column: span 2;">
+                                        <div class="info-label">Management Workers Involved</div>
+                                        <div class="workers-list-box">
+                                            ${(item.workers || []).map(w => `• ${escapeHTML(w.first_name)} ${escapeHTML(w.last_name)} (${escapeHTML(w.employee_id)})`).join('<br>')}
+                                        </div>
+                                    </div>
+                                ` : `
+                                    <div><div class="info-label">Full Name</div><div class="info-val">${escapeHTML(item.first_name)} ${escapeHTML(item.last_name)}</div></div>
+                                    <div><div class="info-label">Employee ID</div><div class="info-val">${escapeHTML(item.employee_id)}</div></div>
+                                `}
                                 <div><div class="info-label">Requested Item/s</div><div class="info-val">${escapeHTML(item.item_request)}</div></div>
                                 <div><div class="info-label">Quantity</div><div class="info-val">${item.quantity}</div></div>
                                 <div><div class="info-label">Total Cost Value</div><div class="info-val">${escapeHTML(item.cost)}</div></div>
@@ -666,7 +894,7 @@
                             </div>
                             ${item.manager_note ? `
                                 <div style="margin-top:10px; padding:10px; background:rgba(255,255,255,0.05); border-left:3px solid #7b4ec2;">
-                                    <div class="info-label">Manager Note Response Context:</div>
+                                    <div class="info-label">Manager Reason Note:</div>
                                     <div class="info-val" style="font-style:italic;">"${escapeHTML(item.manager_note)}"</div>
                                 </div>
                             ` : ''}
@@ -681,42 +909,24 @@
 
         function handleManagerDecision(id, updatedStatus) {
             const noteContent = document.getElementById(`noteField-${id}`).value;
-            
-            // FETCHING TOKEN DYNAMICALLY FROM META TO PREVENT SECURITY TIMEOUT EXPIRED PAYLOADS
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
             fetch(`/requisitions/${id}/decide`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'X-CSRF-TOKEN': csrfToken
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
                 },
                 body: JSON.stringify({
                     status: updatedStatus,
                     manager_note: noteContent
                 })
-            })
-            .then(response => {
-                if(!response.ok) throw new Error('Server error response code.');
-                return response.json();
-            })
-            .then(data => {
-                if (data.success) {
-                    const targetElement = appDataset.find(d => d.id === id);
-                    if(targetElement) {
-                        targetElement.status = updatedStatus;
-                        targetElement.manager_note = noteContent;
-                        renderManagerContent();
-                    }
-                } else {
-                    alert('Could not sync data changes with the SQL database server.');
-                }
-            })
-            .catch(error => {
-                console.error('Error Details:', error);
-                alert('Database connectivity timeout occurred.');
-            });
+            }).then(response => response.json())
+              .then(data => {
+                  if(data.success) {
+                      // Save state so page reloads back into Manager Domain!
+                      sessionStorage.setItem('activeDomain', 'manager');
+                      window.location.reload();
+                  }
+              });
         }
 
         function renderManagerContent() {
@@ -731,30 +941,44 @@
                 const items = appDataset.filter(d => d.status === mapping.filterStatus);
 
                 if(items.length === 0) {
-                    targetView.innerHTML = `<div style="text-align:center; color:#5c448f; padding:20px; font-weight:bold;">No forms verified in state register: ${mapping.filterStatus}</div>`;
+                    targetView.innerHTML = `<div class="empty-state-text">No forms matching state: ${mapping.filterStatus}</div>`;
                     return;
                 }
 
                 targetView.innerHTML = items.map(item => `
                     <div class="dropdown-item">
                         <button class="dropdown-trigger" onclick="toggleAccordion('mgrCollapse-${item.id}')">
-                            <span>Form Request Log #${item.id} - Requester: ${escapeHTML(item.first_name)} ${escapeHTML(item.last_name)}</span>
+                            <span style="display: flex; align-items: center;">
+                                ${getStatusBadge(item.status)}
+                                <b>${getAccordionTitle(item)}</b>
+                                ${item.form_type === 'management' ? ` &nbsp;- Dept: ${escapeHTML(item.department)}` : ` &nbsp;- Requester: ${escapeHTML(item.first_name)} ${escapeHTML(item.last_name)}`}
+                            </span>
                             <span>&#9660;</span>
                         </button>
                         <div class="dropdown-content" id="mgrCollapse-${item.id}">
                             <div class="info-grid">
-                                <div><div class="info-label">Employee Name</div><div class="info-val">${escapeHTML(item.first_name)} ${escapeHTML(item.last_name)}</div></div>
-                                <div><div class="info-label">Employee ID Target</div><div class="info-val">${escapeHTML(item.employee_id)}</div></div>
+                                ${item.form_type === 'management' ? `
+                                    <div><div class="info-label">Department</div><div class="info-val">${escapeHTML(item.department)}</div></div>
+                                    <div style="grid-column: span 2;">
+                                        <div class="info-label">Management Workers Involved</div>
+                                        <div class="workers-list-box">
+                                            ${(item.workers || []).map(w => `• ${escapeHTML(w.first_name)} ${escapeHTML(w.last_name)} (${escapeHTML(w.employee_id)})`).join('<br>')}
+                                        </div>
+                                    </div>
+                                ` : `
+                                    <div><div class="info-label">Employee Name</div><div class="info-val">${escapeHTML(item.first_name)} ${escapeHTML(item.last_name)}</div></div>
+                                    <div><div class="info-label">Employee ID</div><div class="info-val">${escapeHTML(item.employee_id)}</div></div>
+                                `}
                                 <div><div class="info-label">Requested Object</div><div class="info-val">${escapeHTML(item.item_request)}</div></div>
-                                <div><div class="info-label">Quantity Variant</div><div class="info-val">${item.quantity}</div></div>
-                                <div><div class="info-label">Estimated Extended Cost</div><div class="info-val">${escapeHTML(item.cost)}</div></div>
-                                <div><div class="info-label">Form Narrative / Description Comments</div><div class="info-val">${escapeHTML(item.comments || 'N/A')}</div></div>
+                                <div><div class="info-label">Quantity</div><div class="info-val">${item.quantity}</div></div>
+                                <div><div class="info-label">Estimated Cost</div><div class="info-val">${escapeHTML(item.cost)}</div></div>
+                                <div><div class="info-label">Reason / Comments</div><div class="info-val">${escapeHTML(item.comments || 'N/A')}</div></div>
                             </div>
                             
                             ${mapping.tab === 'requests' ? `
                                 <div class="manager-action-box">
-                                    <div class="info-label">Manager Reason Note:</div>
-                                    <textarea id="noteField-${item.id}" class="manager-textarea" placeholder="Add a note to show why this form item was approved or rejected..."></textarea>
+                                    <div class="info-label">Manager Decision Note:</div>
+                                    <textarea id="noteField-${item.id}" class="manager-textarea" placeholder="Add a note explaining why this request was approved or rejected..."></textarea>
                                     <div class="manager-btn-row">
                                         <button class="btn-action-reject" onclick="handleManagerDecision(${item.id}, 'Rejected')">Reject</button>
                                         <button class="btn-action-approve" onclick="handleManagerDecision(${item.id}, 'Approved')">Approve</button>
@@ -762,8 +986,8 @@
                                 </div>
                             ` : `
                                 <div style="margin-top:10px; padding:10px; background:rgba(255,255,255,0.05); border-left:3px solid #7b4ec2;">
-                                    <div class="info-label">Submitted Evaluation Note Data:</div>
-                                    <div class="info-val">${escapeHTML(item.manager_note || 'No rationale logged.')}</div>
+                                    <div class="info-label">Submitted Manager Note:</div>
+                                    <div class="info-val">${escapeHTML(item.manager_note || 'No note logged.')}</div>
                                 </div>
                             `}
                         </div>
@@ -778,8 +1002,6 @@
                 tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
             );
         }
-
-        renderEmployeeContent();
     </script>
 </body>
 </html>

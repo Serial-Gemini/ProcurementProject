@@ -11,7 +11,7 @@ Route::get('/', function () { return redirect()->route('requisition.index'); });
 
 // --- Requisition Management Routes ---
 Route::get('/mari', [RequisitionController::class, 'index'])->name('requisition.index');
-Route::post('/requisitions/store', [RequisitionController::class, 'store'])->name('requisition.store');
+Route::post('/requisitions/store', [RequisitionController::class, 'store'])->name('requisitions.store');
 // This route matches the URL in your fetch() call
 Route::post('/requisitions/{id}/decide', [RequisitionController::class, 'decide'])->name('requisition.decide');
 

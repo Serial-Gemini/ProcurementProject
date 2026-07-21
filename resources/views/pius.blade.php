@@ -189,7 +189,7 @@
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         
         // Dynamic payload injected directly from MySQL database through Laravel Controller
-        let records = @json($records);
+        let records = @json($records ?? []);
         let selectedRecordId = records.length > 0 ? records[0].id : null;
 
         function renderWorkspace() {

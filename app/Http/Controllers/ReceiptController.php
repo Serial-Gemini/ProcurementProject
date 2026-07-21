@@ -8,9 +8,13 @@ use Illuminate\Http\Request;
 class ReceiptController extends Controller
 {
     public function index()
-    {
-        return view('pius');
-    }
+{
+    // 1. Fetch the data from your database (Replace 'YourModelName' with the actual model you are using)
+    $records = Receipt::all(); 
+
+    // 2. Pass the $records variable into the view
+    return view('pius', compact('records'));
+}
 
     public function apiIndex()
     {

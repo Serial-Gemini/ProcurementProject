@@ -27,24 +27,7 @@
                     <button class="w-full py-3 px-4 rounded-full text-xs font-bold text-indigo-400 bg-slate-900 hover:bg-slate-800/80 border border-slate-800 transition-all text-center cursor-pointer">
                         Purchase Requisition
                     </button>
-                </a>
-                <a href="/waylon" class="w-full">
-                    <button class="w-full py-3 px-4 rounded-full text-xs font-bold text-indigo-400 bg-slate-900 hover:bg-slate-800/80 border border-slate-800 transition-all text-center cursor-pointer">
-                        Supplier Management
-                    </button>
-                </a>
-                <a href="/bulugagao" class="w-full">
-                    <button class="w-full py-3 px-4 rounded-full text-xs font-bold text-white bg-gradient-to-r from-indigo-600 to-purple-600 shadow-lg shadow-indigo-500/20 transition-all text-center cursor-pointer">
-                        Purchase Order
-                    </button>
-                </a>
-                <a href="/malacaste" class="w-full">
-                    <button class="w-full py-3 px-4 rounded-full text-xs font-bold text-indigo-400 bg-slate-900 hover:bg-slate-800/80 border border-slate-800 transition-all text-center cursor-pointer">
-                        Goods Receipt
-                    </button>
-                </a>
-            </div>
-        </div>
+               
     </div>
 
     <div class="flex-1 flex flex-col h-full overflow-y-auto px-8 py-6">

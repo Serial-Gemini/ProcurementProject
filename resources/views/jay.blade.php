@@ -10,9 +10,9 @@
         .bg-purple-header { background-color: #1f0b61; }
     </style>
 </head>
-<body class="bg-[#0F2A4A] text-slate-100 min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#0a1d35] via-slate-900 to-black flex m-0 h-screen overflow-hidden">
+<body class="bg-slate-900 text-slate-100 min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-indigo-950 via-slate-900 to-black flex m-0 h-screen overflow-hidden">
 
-    <div class="w-[260px] min-w-[260px] bg-[#08182d]/80 backdrop-blur-md p-6 flex flex-col justify-between border-r border-slate-800 h-full">
+    <div class="w-[260px] min-w-[260px] bg-slate-950/80 backdrop-blur-md p-6 flex flex-col justify-between border-r border-slate-800 h-full">
         <div>
             <div class="text-center mb-8">
                 <svg class="w-16 h-16 mx-auto mb-2 fill-indigo-400" viewBox="0 0 100 100">
@@ -27,7 +27,24 @@
                     <button class="w-full py-3 px-4 rounded-full text-xs font-bold text-indigo-400 bg-slate-900 hover:bg-slate-800/80 border border-slate-800 transition-all text-center cursor-pointer">
                         Purchase Requisition
                     </button>
-               
+                </a>
+                <a href="/waylon" class="w-full">
+                    <button class="w-full py-3 px-4 rounded-full text-xs font-bold text-indigo-400 bg-slate-900 hover:bg-slate-800/80 border border-slate-800 transition-all text-center cursor-pointer">
+                        Supplier Management
+                    </button>
+                </a>
+                <a href="/bulugagao" class="w-full">
+                    <button class="w-full py-3 px-4 rounded-full text-xs font-bold text-white bg-gradient-to-r from-indigo-600 to-purple-600 shadow-lg shadow-indigo-500/20 transition-all text-center cursor-pointer">
+                        Purchase Order
+                    </button>
+                </a>
+                <a href="/malacaste" class="w-full">
+                    <button class="w-full py-3 px-4 rounded-full text-xs font-bold text-indigo-400 bg-slate-900 hover:bg-slate-800/80 border border-slate-800 transition-all text-center cursor-pointer">
+                        Goods Receipt
+                    </button>
+                </a>
+            </div>
+        </div>
     </div>
 
     <div class="flex-1 flex flex-col h-full overflow-y-auto px-8 py-6">
@@ -57,6 +74,20 @@
 
             <div class="w-full">
                 
+                <!-- PAGE 1: PO LIST -->
+                <div id="page-po" class="flex flex-col gap-4">
+                    <div class="bg-slate-900/80 backdrop-blur-md border border-slate-800 rounded-xl p-6 shadow-2xl">
+                        <div class="overflow-hidden rounded-xl border border-slate-800 bg-slate-950/50">
+                            <table class="w-full text-left border-collapse text-sm">
+                                <thead>
+                                    <tr class="border-b border-slate-800 bg-slate-900/50 text-xs font-bold uppercase tracking-wider text-slate-400">
+                                        <th class="p-4">PO Code</th>
+                                        <th class="p-4">Vendor Partner</th>
+                                        <th class="p-4">Requisition Link</th>
+                                        <th class="p-4">Aggregate Cost</th>
+                                        <th class="p-4">Delivery Due</th>
+                                        <th class="p-4">State</th>
+                                    </tr>
                                 </thead>
                                 <tbody class="divide-y divide-slate-800/50">
                                     @forelse($purchaseOrders ?? [] as $po)

@@ -57,8 +57,7 @@
 
             <div class="w-full">
                 
-                <!-- PAGE 1: PO LIST -->
-               
+                                </thead>
                                 <tbody class="divide-y divide-slate-800/50">
                                     @forelse($purchaseOrders ?? [] as $po)
                                         <tr class="hover:bg-slate-900/30 transition-all">

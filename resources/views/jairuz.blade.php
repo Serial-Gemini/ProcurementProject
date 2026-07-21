@@ -430,17 +430,7 @@
 
     <div class="container">
         
-        <!-- SIDEBAR -->
-        <div class="sidebar">
-            <div style="width: 100%;">
-                <div class="brand-section">
-                    <svg class="brand-logo" viewBox="0 0 100 100" fill="#ffffff">
-                        <path d="M50,15 C55,35 75,30 90,40 C75,55 60,45 50,75 C40,45 25,55 10,40 C25,30 45,35 50,15 Z" />
-                    </svg>
-                    <h1 class="brand-title">Shantha</h1>
-                    <p class="brand-subtitle">Motors</p>
-                </div>
-
+      
                 <div class="nav-group">
                     <a href="/mari" class="nav-link">
                         <button class="sidebar-btn btn-active" id="nav-requisition">Purchase Requisition and Approval</button>

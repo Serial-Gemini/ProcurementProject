@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <!-- Hewwo -->
-    <!-- it doesn't matter if you shimmy -->
+     <!-- it doesn't matter if you shimmy -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>TwinPulse Computing - Supplier Portal</title>
+    <title>Shantha Motors - Supplier Portal</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -18,8 +18,8 @@
                 <svg class="w-16 h-16 mx-auto mb-2 fill-indigo-400" viewBox="0 0 100 100">
                     <path d="M50,15 C55,35 75,30 90,40 C75,55 60,45 50,75 C40,45 25,55 10,40 C25,30 45,35 50,15 Z" />
                 </svg>
-                <div class="text-white text-xl font-extrabold tracking-widest uppercase">TwinPulse</div>
-                <div class="text-indigo-400 text-xs tracking-[4px] uppercase font-semibold">Computing</div>
+                <div class="text-white text-xl font-extrabold tracking-widest uppercase">Shantha</div>
+                <div class="text-indigo-400 text-xs tracking-[4px] uppercase font-semibold">Motors</div>
             </div>
 
             <div class="flex flex-col gap-3 w-full">
@@ -79,10 +79,8 @@
                                 <th class="p-4">Supplier Info</th>
                                 <th class="p-4">Contact Person</th>
                                 <th class="p-4">Phone / Email</th>
-                                <th class="p-4">Catalog & Pricing</th>
                                 <th class="p-4">Rating</th>
                                 <th class="p-4">Status</th>
-                                <th class="p-4">Actions</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-800/50">
@@ -97,20 +95,10 @@
                                         <div class="text-slate-300 font-medium">{{ $supplier->phone }}</div>
                                         <div class="text-xs text-slate-500 mt-0.5 font-mono">{{ $supplier->email }}</div>
                                     </td>
-                                    <!-- COMBINED FUNCTION (a): Catalog & Pricing -->
-                                    <td class="p-4">
-                                        <div class="text-xs text-slate-300 max-w-xs truncate" title="{{ $supplier->catalog_summary ?? 'N/A' }}">
-                                            {{ $supplier->catalog_summary ?? 'No catalog added' }}
-                                        </div>
-                                    </td>
-                                    <!-- COMBINED FUNCTION (b): Evaluation & Ratings -->
                                     <td class="p-4">
                                         <div class="flex items-center gap-1.5">
                                             <span class="text-amber-400 text-xs"><i class="fa-solid fa-star"></i></span>
-                                            <span class="font-bold font-mono text-white">{{ number_format($supplier->rating ?? 5.0, 1) }}</span>
-                                        </div>
-                                        <div class="text-[10px] text-slate-500 mt-1 font-mono">
-                                            D:{{ $supplier->delivery_rating ?? '5.0' }} | Q:{{ $supplier->quality_rating ?? '5.0' }} | C:{{ $supplier->cost_rating ?? '5.0' }}
+                                            <span class="font-bold font-mono text-white">{{ number_format($supplier->rating, 1) }}</span>
                                         </div>
                                     </td>
                                     <td class="p-4">
@@ -119,30 +107,10 @@
                                             {{ $supplier->status }}
                                         </span>
                                     </td>
-                                    <!-- SEPARATED FUNCTIONS (c) and (d) -->
-                                    <td class="p-4">
-                                        <div class="flex items-center gap-2">
-                                            <!-- Separate Function (c): Track contracts and terms -->
-                                            <button type="button" 
-                                                    onclick="alert('Contracts & Terms for {{ $supplier->name }}:\n- Standard Payment Terms: Net 30\n- Contract Expiration: Dec 2026')"
-                                                    class="bg-slate-800 hover:bg-slate-700 text-indigo-300 hover:text-indigo-200 px-2.5 py-1.5 rounded-lg text-xs font-semibold border border-slate-700 flex items-center gap-1 transition-all cursor-pointer">
-                                                <i class="fa-solid fa-file-contract"></i>
-                                                <span>Contracts</span>
-                                            </button>
-
-                                            <!-- Separate Function (d): View purchase history -->
-                                            <button type="button" 
-                                                    onclick="alert('Purchase History for {{ $supplier->name }}:\n- Total Orders: 12\n- Last Purchase: PO-2026-089 (₱45,000)')"
-                                                    class="bg-slate-800 hover:bg-slate-700 text-purple-300 hover:text-purple-200 px-2.5 py-1.5 rounded-lg text-xs font-semibold border border-slate-700 flex items-center gap-1 transition-all cursor-pointer">
-                                                <i class="fa-solid fa-clock-rotate-left"></i>
-                                                <span>History</span>
-                                            </button>
-                                        </div>
-                                    </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="p-12 text-center text-slate-500">
+                                    <td colspan="5" class="p-12 text-center text-slate-500">
                                         <div class="text-4xl mb-3"><i class="fa-regular fa-folder-open text-slate-600"></i></div>
                                         <div class="font-semibold text-slate-400">No suppliers registered yet.</div>
                                     </td>
@@ -156,9 +124,9 @@
         </div>
     </div>
 
-    <!-- REGISTER MODAL (Combines Info + Pricing/Catalog + Performance Ratings) -->
+    <!-- REGISTER MODAL -->
     <div id="supplierModal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-xl w-full max-w-lg p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+        <div class="bg-slate-900 border border-slate-800 rounded-xl w-full max-w-md p-6 shadow-2xl relative">
             <button onclick="document.getElementById('supplierModal').classList.add('hidden')" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-all cursor-pointer">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
@@ -168,62 +136,30 @@
             
             <form action="{{ route('supplier.store') }}" method="POST" class="space-y-4">
                 @csrf
-                
-                <!-- Function (a): Contact Information -->
                 <div>
                     <label class="block text-xs font-bold uppercase tracking-wider text-indigo-400">Supplier Name</label>
-                    <input type="text" name="name" required placeholder="Acme Parts Ltd" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 mt-1 text-white focus:outline-none focus:border-indigo-500 text-sm">
+                    <input type="text" name="name" required placeholder="Acme Parts Ltd" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 mt-1 text-white focus:outline-none focus:border-indigo-500">
                 </div>
-                
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-indigo-400">Contact Person</label>
-                        <input type="text" name="contact_person" required placeholder="John Doe" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 mt-1 text-white focus:outline-none focus:border-indigo-500 text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-indigo-400">Phone Number</label>
-                        <input type="text" name="phone" placeholder="+63" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 mt-1 text-white focus:outline-none focus:border-indigo-500 text-sm">
-                    </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-indigo-400">Contact Person</label>
+                    <input type="text" name="contact_person" required placeholder="John Doe" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 mt-1 text-white focus:outline-none focus:border-indigo-500">
                 </div>
-
                 <div>
                     <label class="block text-xs font-bold uppercase tracking-wider text-indigo-400">Email Address</label>
-                    <input type="email" name="email" required placeholder="contact@acme.com" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 mt-1 text-white focus:outline-none focus:border-indigo-500 text-sm">
+                    <input type="email" name="email" required placeholder="contact@acme.com" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 mt-1 text-white focus:outline-none focus:border-indigo-500">
                 </div>
-
-                <!-- Function (a): Pricing & Product Catalogs -->
                 <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-indigo-400">Product Catalog & Pricing Details</label>
-                    <textarea name="catalog_summary" rows="2" placeholder="e.g., Engine Oil (₱500/unit), Brake Pads (₱1,200/unit)" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 mt-1 text-white focus:outline-none focus:border-indigo-500 text-sm"></textarea>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-indigo-400">Phone Number</label>
+                    <input type="text" name="phone" placeholder="+63" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 mt-1 text-white focus:outline-none focus:border-indigo-500">
                 </div>
-
-                <!-- Function (b): Performance Ratings (Delivery, Quality, Cost) -->
-                <div class="border-t border-slate-800 pt-3">
-                    <label class="block text-xs font-bold uppercase tracking-wider text-indigo-400 mb-2">Performance Evaluation Ratings</label>
-                    <div class="grid grid-cols-3 gap-3">
-                        <div>
-                            <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400">Delivery (1-5)</label>
-                            <input type="number" step="0.1" min="1" max="5" name="delivery_rating" value="5.0" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 mt-1 text-white font-mono text-xs focus:outline-none focus:border-indigo-500">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400">Quality (1-5)</label>
-                            <input type="number" step="0.1" min="1" max="5" name="quality_rating" value="5.0" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 mt-1 text-white font-mono text-xs focus:outline-none focus:border-indigo-500">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400">Cost (1-5)</label>
-                            <input type="number" step="0.1" min="1" max="5" name="cost_rating" value="5.0" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 mt-1 text-white font-mono text-xs focus:outline-none focus:border-indigo-500">
-                        </div>
-                    </div>
-                </div>
-
                 <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-indigo-400">Overall Rating</label>
-                        <input type="number" step="0.1" min="1" max="5" name="rating" value="5.0" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 mt-1 text-white focus:outline-none focus:border-indigo-500 font-mono text-sm">
+                        <label class="block text-xs font-bold uppercase tracking-wider text-indigo-400">Rating</label>
+                        <input type="number" step="0.1" min="1" max="5" name="rating" value="5.0" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 mt-1 text-white focus:outline-none focus:border-indigo-500 font-mono">
                     </div>
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-indigo-400">Status</label>
-                        <select name="status" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 mt-1 text-white focus:outline-none focus:border-indigo-500 text-sm">
+                        <select name="status" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 mt-1 text-white focus:outline-none focus:border-indigo-500">
                             <option value="Active">Active</option>
                             <option value="Inactive">Inactive</option>
                         </select>

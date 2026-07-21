@@ -384,23 +384,7 @@
         <div>
             
 
-            <div class="nav-list">
-                <a href="/mari" class="nav-link">
-                    <button class="nav-btn inactive">Purchase Requisition and Approval</button>
-                </a>
-                <a href="/waylon" class="nav-link">
-                    <button class="nav-btn inactive">Supplier Management</button>
-                </a>
-                <a href="/bulugagao" class="nav-link">
-                    <button class="nav-btn inactive">Purchase Order Management</button>
-                </a>
-                <a href="/malacaste" class="nav-link">
-                    <button class="nav-btn active">Goods Receipt and Invoice Matching</button>
-                </a>
-            </div>
-        </div>
-
-        <div class="sidebar-footer">
+            
 
         </div>
     </div>

@@ -9,7 +9,18 @@ class PurchaseOrder extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['po_code', 'requisition_id', 'supplier_id', 'valuation', 'delivery_milestone', 'instructions', 'status'];
+    protected $fillable = [
+        'po_number',
+        'po_code',
+        'requisition_id',
+        'supplier_id',
+        'supplier',
+        'amount',
+        'valuation',
+        'delivery_milestone',
+        'instructions',
+        'status'
+    ];
 
     public function requisition()
     {

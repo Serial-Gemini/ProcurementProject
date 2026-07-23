@@ -12,7 +12,6 @@ Route::get('/', function () { return redirect()->route('requisition.index'); });
 // --- Requisition Management Routes ---
 Route::get('/mari', [RequisitionController::class, 'index'])->name('requisition.index');
 Route::post('/requisitions/store', [RequisitionController::class, 'store'])->name('requisitions.store');
-// This route matches the URL in your fetch() call
 Route::post('/requisitions/{id}/decide', [RequisitionController::class, 'decide'])->name('requisition.decide');
 
 // --- Supplier Management Routes ---
@@ -23,14 +22,11 @@ Route::post('/suppliers/store', [SupplierController::class, 'store'])->name('sup
 Route::get('/bulugagao', [PurchaseOrderController::class, 'index'])->name('po.index');
 Route::post('/purchase-orders/store', [PurchaseOrderController::class, 'store'])->name('po.store');
 
-// --- Goods Receipt View ---
+// --- Goods Receipt & 3-Way Matching Views ---
 Route::get('/malacaste', [ReceiptController::class, 'index'])->name('receipt.index');
 
-// Goods Receipt Javascript-Based AJAX APIs
+// Goods Receipt AJAX APIs
 Route::prefix('api')->group(function () {
-    Route::get('/receipts', [ReceiptController::class, 'apiIndex']);
-    Route::post('/receipts', [ReceiptController::class, 'apiStore']);
-    Route::post('/receipts/{id}/step', [ReceiptController::class, 'apiUpdateStep']);
+    Route::post('/receipts/{id}/approve', [ReceiptController::class, 'apiVerify']);
     Route::post('/receipts/{id}/verify', [ReceiptController::class, 'apiVerify']);
-    Route::post('/receipts/clear', [ReceiptController::class, 'apiClear']);
 });

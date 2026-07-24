@@ -7,42 +7,135 @@
     <title>Shantha Motors - Purchase Order Management</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .sidebar {
+            width: 250px;
+            min-width: 250px;
+            background-color: #0d213a;
+            padding: 40px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            height: 100vh;
+            z-index: 10;
+            box-sizing: border-box;
+        }
+
+        .brand-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-bottom: 35px;
+            width: 100%;
+        }
+
+        .brand-logo {
+            width: 65px;
+            height: 65px;
+            margin-bottom: 12px;
+        }
+
+        .brand-title {
+            color: #ffffff;
+            font-size: 19px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .brand-subtitle {
+            color: #bfa1fc;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        .nav-group {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            width: 100%;
+            display: block;
+        }
+
+        .sidebar-btn {
+            width: 100%;
+            padding: 0 12px;
+            height: 44px;
+            border-radius: 30px;
+            font-size: 11px; /* Slightly smaller font */
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+            white-space: nowrap; /* Ensures single line */
+            overflow: hidden; /* Prevents overflow */
+            text-overflow: ellipsis; /* Adds '...' if text is too long */
+        }
+
+        .btn-active {
+            background: linear-gradient(135deg, #a879f5, #7a46d1);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(122, 70, 209, 0.4);
+        }
+
+        .btn-inactive {
+            background-color: #ffffff;
+            color: #101622; /* Slightly darker text color */
+        }
+
+        .btn-inactive:hover {
+            background-color: #e2e8f0;
+            color: #000000;
+        }
+    </style>
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans flex h-screen overflow-hidden m-0">
 
-    <!-- SIDEBAR NAVIGATION (Fixed & Aligned) -->
-    <aside class="w-64 min-w-[16rem] max-w-[16rem] bg-indigo-950/90 border-r border-indigo-900/50 p-6 flex flex-col justify-between h-full z-20 flex-shrink-0 shadow-2xl">
-        <div class="w-full">
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="sidebar">
+        <div class="w-full flex flex-col items-center">
             <!-- LOGO BRANDING -->
-            <div class="text-center mb-8">
-                <svg class="w-16 h-16 mx-auto mb-2 fill-white" viewBox="0 0 100 100">
+            <div class="brand-section">
+                <svg class="brand-logo" viewBox="0 0 100 100" fill="#ffffff">
                     <path d="M50,15 C55,35 75,30 90,40 C75,55 60,45 50,75 C40,45 25,55 10,40 C25,30 45,35 50,15 Z" />
                 </svg>
-                <h1 class="text-white text-xl font-extrabold tracking-wider uppercase">Shantha</h1>
-                <p class="text-indigo-300 text-xs tracking-[4px] uppercase font-semibold">Motors</p>
+                <h1 class="brand-title">Shantha</h1>
+                <p class="brand-subtitle">Motors</p>
             </div>
 
             <!-- MODULE LINKS -->
-            <nav class="flex flex-col gap-3 w-full">
-                <a href="/mari" class="w-full block">
-                    <button class="w-full py-3 px-4 rounded-full text-xs font-bold text-indigo-950 bg-white hover:bg-indigo-50 transition cursor-pointer shadow text-center truncate">
-                        Purchase Requisition
-                    </button>
+            <nav class="nav-group">
+                <a href="/mari" class="nav-link">
+                    <button class="sidebar-btn btn-inactive" title="Purchase Requisition and Approval">Purchase Requisition and Approval</button>
                 </a>
-                <a href="/waylon" class="w-full block">
-                    <button class="w-full py-3 px-4 rounded-full text-xs font-bold text-indigo-950 bg-white hover:bg-indigo-50 transition cursor-pointer shadow text-center truncate">
-                        Supplier Management
-                    </button>
+                <a href="/waylon" class="nav-link">
+                    <button class="sidebar-btn btn-inactive" title="Supplier Management">Supplier Management</button>
                 </a>
-                <a href="/bulugagao" class="w-full block">
-                    <button class="w-full py-3 px-4 rounded-full text-xs font-bold text-white bg-gradient-to-r from-purple-600 to-indigo-600 shadow-lg shadow-indigo-500/30 transition cursor-pointer text-center truncate">
-                        Purchase Order
-                    </button>
+                <a href="/bulugagao" class="nav-link">
+                    <button class="sidebar-btn btn-active" title="Purchase Order Management">Purchase Order Management</button>
                 </a>
-                <a href="/malacaste" class="w-full block">
-                    <button class="w-full py-3 px-4 rounded-full text-xs font-bold text-indigo-950 bg-white hover:bg-indigo-50 transition cursor-pointer shadow text-center truncate">
-                        Goods Receipt & Matching
-                    </button>
+                <a href="/malacaste" class="nav-link">
+                    <button class="sidebar-btn btn-inactive" title="Goods Receipt and Invoice Matching">Goods Receipt and Invoice Matching</button>
                 </a>
             </nav>
         </div>

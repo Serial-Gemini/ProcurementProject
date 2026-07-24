@@ -6,47 +6,154 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>TwinPulse Computing - Supplier Portal</title>
+    <title>Shantha Motors - Supplier Portal</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .sidebar {
+            width: 250px;
+            min-width: 250px;
+            background-color: #0b1a30;
+            padding: 40px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            height: 100vh;
+            z-index: 10;
+            box-sizing: border-box;
+        }
+
+        .brand-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-bottom: 35px;
+            width: 100%;
+        }
+
+        .brand-logo {
+            width: 65px;
+            height: 65px;
+            margin-bottom: 12px;
+        }
+
+        .brand-title {
+            color: #ffffff;
+            font-size: 19px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .brand-subtitle {
+            color: #bfa1fc;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        .nav-group {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            width: 100%;
+            display: block;
+        }
+
+        .sidebar-btn {
+            width: 100%;
+            padding: 0 12px;
+            height: 44px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Active State (Purple Gradient with Soft Glow) */
+        .btn-active {
+            background: linear-gradient(135deg, #a879f5, #7a46d1);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(122, 70, 209, 0.4);
+        }
+
+        /* Inactive State (Pure White Pill, Dark Text) */
+        .btn-inactive {
+            background-color: #ffffff;
+            color: #101622;
+        }
+
+        .btn-inactive:hover {
+            background-color: #f1f5f9;
+            color: #000000;
+        }
+    </style>
 </head>
 <body class="bg-[#0F2A4A] text-slate-100 min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#0a1d35] via-slate-900 to-black flex m-0 h-screen overflow-hidden">
 
-    <div class="w-[260px] min-w-[260px] bg-[#08182d]/80 backdrop-blur-md p-6 flex flex-col justify-between border-r border-slate-800 h-full">
-        <div>
-            <div class="text-center mb-8">
-                <svg class="w-16 h-16 mx-auto mb-2 fill-indigo-400" viewBox="0 0 100 100">
+    <!-- MATCHED SIDEBAR -->
+    <aside class="sidebar">
+        <div class="w-full flex flex-col items-center">
+            <!-- LOGO & BRANDING -->
+            <div class="brand-section">
+                <svg class="brand-logo" viewBox="0 0 100 100" fill="#ffffff">
                     <path d="M50,15 C55,35 75,30 90,40 C75,55 60,45 50,75 C40,45 25,55 10,40 C25,30 45,35 50,15 Z" />
                 </svg>
-                <div class="text-white text-xl font-extrabold tracking-widest uppercase">TwinPulse</div>
-                <div class="text-indigo-400 text-xs tracking-[4px] uppercase font-semibold">Computing</div>
+                <h1 class="brand-title">Shantha</h1>
+                <p class="brand-subtitle">Motors</p>
             </div>
 
-            <div class="flex flex-col gap-3 w-full">
-                <a href="/mari" class="w-full">
-                    <button class="w-full py-3 px-4 rounded-full text-xs font-bold text-indigo-400 bg-slate-900 hover:bg-slate-800/80 border border-slate-800 transition-all text-center cursor-pointer">
-                        Purchase Requisition
+            <!-- MODULE NAVIGATION -->
+            <nav class="nav-group">
+                <a href="/mari" class="nav-link">
+                    <button class="sidebar-btn btn-inactive" title="Purchase Requisition and Approval">
+                        Purchase Requisition and Approval
                     </button>
                 </a>
-                <a href="/waylon" class="w-full">
-                    <button class="w-full py-3 px-4 rounded-full text-xs font-bold text-white bg-gradient-to-r from-indigo-600 to-purple-600 shadow-lg shadow-indigo-500/20 transition-all text-center cursor-pointer">
+                <a href="/waylon" class="nav-link">
+                    <button class="sidebar-btn btn-active" title="Supplier Management">
                         Supplier Management
                     </button>
                 </a>
-                <a href="/bulugagao" class="w-full">
-                    <button class="w-full py-3 px-4 rounded-full text-xs font-bold text-indigo-400 bg-slate-900 hover:bg-slate-800/80 border border-slate-800 transition-all text-center cursor-pointer">
-                        Purchase Order
+                <a href="/bulugagao" class="nav-link">
+                    <button class="sidebar-btn btn-inactive" title="Purchase Order Management">
+                        Purchase Order Management
                     </button>
                 </a>
-                <a href="/malacaste" class="w-full">
-                    <button class="w-full py-3 px-4 rounded-full text-xs font-bold text-indigo-400 bg-slate-900 hover:bg-slate-800/80 border border-slate-800 transition-all text-center cursor-pointer">
-                        Goods Receipt
+                <a href="/malacaste" class="nav-link">
+                    <button class="sidebar-btn btn-inactive" title="Goods Receipt and Invoice Matching">
+                        Goods Receipt and Invoice Matching
                     </button>
                 </a>
-            </div>
+            </nav>
         </div>
-    </div>
+    </aside>
 
+    <!-- MAIN CONTENT AREA -->
     <div class="flex-1 flex flex-col h-full overflow-y-auto px-8 py-6">
         <div class="max-w-7xl w-full mx-auto">
             
@@ -156,7 +263,7 @@
         </div>
     </div>
 
-    <!-- REGISTER MODAL (Combines Info + Pricing/Catalog + Performance Ratings) -->
+    <!-- REGISTER MODAL -->
     <div id="supplierModal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-xl w-full max-w-lg p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <button onclick="document.getElementById('supplierModal').classList.add('hidden')" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-all cursor-pointer">
@@ -169,7 +276,6 @@
             <form action="{{ route('supplier.store') }}" method="POST" class="space-y-4">
                 @csrf
                 
-                <!-- Function (a): Contact Information -->
                 <div>
                     <label class="block text-xs font-bold uppercase tracking-wider text-indigo-400">Supplier Name</label>
                     <input type="text" name="name" required placeholder="Acme Parts Ltd" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 mt-1 text-white focus:outline-none focus:border-indigo-500 text-sm">
@@ -191,13 +297,11 @@
                     <input type="email" name="email" required placeholder="contact@acme.com" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 mt-1 text-white focus:outline-none focus:border-indigo-500 text-sm">
                 </div>
 
-                <!-- Function (a): Pricing & Product Catalogs -->
                 <div>
                     <label class="block text-xs font-bold uppercase tracking-wider text-indigo-400">Product Catalog & Pricing Details</label>
                     <textarea name="catalog_summary" rows="2" placeholder="e.g., Engine Oil (₱500/unit), Brake Pads (₱1,200/unit)" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 mt-1 text-white focus:outline-none focus:border-indigo-500 text-sm"></textarea>
                 </div>
 
-                <!-- Function (b): Performance Ratings (Delivery, Quality, Cost) -->
                 <div class="border-t border-slate-800 pt-3">
                     <label class="block text-xs font-bold uppercase tracking-wider text-indigo-400 mb-2">Performance Evaluation Ratings</label>
                     <div class="grid grid-cols-3 gap-3">

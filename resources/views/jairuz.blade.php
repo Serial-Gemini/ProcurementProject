@@ -31,36 +31,45 @@
             overflow: hidden;
         }
 
+        /* MATCHED SIDEBAR STYLING */
         .sidebar {
             width: 250px;
             min-width: 250px;
-            background-color: #0F2A4A;
-            padding: 30px 20px;
+            background-color: #0b1a30;
+            padding: 30px 16px 20px 16px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            border-right: 2px solid #2e1762;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
             height: 100%;
             z-index: 10;
         }
 
         .brand-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-align: center;
             margin-bottom: 30px;
+            width: 100%;
         }
 
         .brand-logo {
-            width: 70px;
+            width: 65px;
+            height: 65px;
             margin-bottom: 10px;
         }
 
         .brand-title {
             color: #ffffff;
-            font-size: 18px;
-            font-weight: bold;
+            font-size: 19px;
+            font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
+            margin: 0;
+            line-height: 1.2;
         }
 
         .brand-subtitle {
@@ -68,7 +77,8 @@
             font-size: 11px;
             letter-spacing: 3px;
             text-transform: uppercase;
-            margin-top: 5px;
+            margin-top: 4px;
+            font-weight: 500;
         }
 
         .nav-group {
@@ -76,39 +86,50 @@
             flex-direction: column;
             gap: 15px;
             width: 100%;
+            align-items: center;
         }
 
         .nav-link {
             text-decoration: none;
             width: 100%;
+            display: block;
         }
 
         .sidebar-btn {
             width: 100%;
-            padding: 12px 10px;
-            border-radius: 20px;
+            padding: 0 12px;
+            height: 44px;
+            border-radius: 30px;
             font-size: 11px;
-            font-weight: bold;
+            font-weight: 600;
             text-align: center;
             cursor: pointer;
             border: none;
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: all 0.2s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
+        /* Active State (Purple Gradient with Glow) */
         .btn-active {
             background: linear-gradient(135deg, #a879f5, #7a46d1);
-            color: white;
-            box-shadow: 0 4px 10px rgba(122, 70, 209, 0.4);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(122, 70, 209, 0.4);
         }
 
+        /* Inactive State (Pure White Pill) */
         .btn-inactive {
             background-color: #ffffff;
-            color: #160a33;
+            color: #101622;
         }
 
         .btn-inactive:hover {
-            background-color: #f0f0f0;
+            background-color: #f1f5f9;
+            color: #000000;
         }
 
         .sidebar-bottom {
@@ -116,21 +137,33 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
+            margin-top: 20px;
         }
 
+        /* Domain Switch Button */
         .btn-domain {
             width: 100%;
             background-color: #fca34d;
-            color: #160a33;
-            padding: 12px;
-            border-radius: 20px;
+            color: #101622;
+            padding: 0 12px;
+            height: 44px;
+            border-radius: 30px;
             font-size: 11px;
-            font-weight: bold;
+            font-weight: 700;
             text-align: center;
             border: none;
             cursor: pointer;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
+        .btn-domain:hover {
+            background-color: #fb923c;
+        }
+
+        /* WORKSPACE STYLING */
         .workspace {
             flex: 1;
             background: linear-gradient(rgba(30, 17, 69, 0.85), rgba(30, 17, 69, 0.95)), 
@@ -536,7 +569,7 @@
 
     <div class="container">
         <!-- SIDEBAR -->
-        <div class="sidebar">
+        <aside class="sidebar">
             <div style="width: 100%;">
                 <div class="brand-section">
                     <svg class="brand-logo" viewBox="0 0 100 100" fill="#ffffff">
@@ -546,26 +579,36 @@
                     <p class="brand-subtitle">Motors</p>
                 </div>
 
-                <div class="nav-group">
+                <nav class="nav-group">
                     <a href="/mari" class="nav-link">
-                        <button class="sidebar-btn btn-active" id="nav-requisition">Purchase Requisition and Approval</button>
+                        <button class="sidebar-btn btn-active" id="nav-requisition" title="Purchase Requisition and Approval">
+                            Purchase Requisition and Approval
+                        </button>
                     </a>
                     <a href="/waylon" class="nav-link">
-                        <button class="sidebar-btn btn-inactive" id="nav-supplier">Supplier Management</button>
+                        <button class="sidebar-btn btn-inactive" id="nav-supplier" title="Supplier Management">
+                            Supplier Management
+                        </button>
                     </a>
                     <a href="/bulugagao" class="nav-link">
-                        <button class="sidebar-btn btn-inactive" id="nav-po">Purchase Order Management</button>
+                        <button class="sidebar-btn btn-inactive" id="nav-po" title="Purchase Order Management">
+                            Purchase Order Management
+                        </button>
                     </a>
                     <a href="/malacaste" class="nav-link">
-                        <button class="sidebar-btn btn-inactive" id="nav-matching">Goods Receipt and Invoice Matching</button>
+                        <button class="sidebar-btn btn-inactive" id="nav-matching" title="Goods Receipt and Invoice Matching">
+                            Goods Receipt and Invoice Matching
+                        </button>
                     </a>
-                </div>
+                </nav>
             </div>
 
             <div class="sidebar-bottom">
-                <button class="btn-domain" id="domainToggleBtn" onclick="toggleDomainView()">SWITCH TO MANAGER DOMAIN</button>
+                <button class="btn-domain" id="domainToggleBtn" onclick="toggleDomainView()" title="SWITCH TO MANAGER DOMAIN">
+                    SWITCH TO MANAGER DOMAIN
+                </button>
             </div>
-        </div>
+        </aside>
 
         <!-- MAIN WORKSPACE -->
         <div class="workspace">

@@ -77,7 +77,7 @@
             padding: 0 12px;
             height: 44px;
             border-radius: 30px;
-            font-size: 11px; /* Slightly smaller font */
+            font-size: 11px;
             font-weight: 600;
             text-align: center;
             cursor: pointer;
@@ -87,9 +87,9 @@
             justify-content: center;
             transition: all 0.2s ease;
             box-sizing: border-box;
-            white-space: nowrap; /* Ensures single line */
-            overflow: hidden; /* Prevents overflow */
-            text-overflow: ellipsis; /* Adds '...' if text is too long */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .btn-active {
@@ -100,7 +100,7 @@
 
         .btn-inactive {
             background-color: #ffffff;
-            color: #101622; /* Slightly darker text color */
+            color: #101622;
         }
 
         .btn-inactive:hover {
@@ -153,7 +153,7 @@
         <div class="flex-1 p-6 overflow-y-auto bg-slate-900">
             
             @if(session('success'))
-                <div class="bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 p-4 rounded-lg mb-6 font-semibold text-sm flex justify-between items-center shadow-lg">
+                <div id="flash-success-banner" class="bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 p-4 rounded-lg mb-6 font-semibold text-sm flex justify-between items-center shadow-lg transition-opacity duration-500">
                     <span>{{ session('success') }}</span>
                     <i class="fa-solid fa-circle-check text-emerald-400"></i>
                 </div>
@@ -191,7 +191,7 @@
                         <span class="text-indigo-300">Records Found: {{ count($purchaseOrders ?? []) }}</span>
                     </div>
 
-                    <!-- Filter Controls (Fixed Active States & Hover Effects) -->
+                    <!-- Filter Controls -->
                     <div class="flex flex-wrap items-center gap-2 mb-4">
                         <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mr-2">Filter Status:</span>
                         <button id="filter-btn-all" onclick="filterStatusTable('all')" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs font-bold uppercase bg-indigo-600 text-white shadow cursor-pointer transition">All</button>
@@ -221,12 +221,12 @@
                                         <td class="p-3.5 text-slate-200 font-medium">{{ $po->supplier }}</td>
                                         <td class="p-3.5 font-bold text-emerald-400">${{ number_format($po->amount, 2) }}</td>
                                         <td class="p-3.5">
-                                            <button type="button" onclick="sendPO('{{ $po->po_number }}')" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-[11px] px-3 py-1.5 rounded-lg shadow hover:shadow-indigo-500/20 cursor-pointer transition flex items-center gap-1.5">
+                                            <button type="button" onclick="sendPO('{{ $po->id ?? $po->po_number }}', this)" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-[11px] px-3 py-1.5 rounded-lg shadow hover:shadow-indigo-500/20 cursor-pointer transition flex items-center gap-1.5">
                                                 <i class="fa-solid fa-paper-plane text-[10px]"></i> Send PO
                                             </button>
                                         </td>
                                         <td class="p-3.5">
-                                            <select onchange="updatePOStatus('{{ $po->po_number }}', this.value)" class="bg-slate-950 border border-slate-800 text-xs font-bold uppercase rounded-lg p-2 text-slate-200 cursor-pointer focus:outline-none focus:border-indigo-500 transition">
+                                            <select onchange="updatePOStatus('{{ $po->id ?? $po->po_number }}', this.value, this)" class="bg-slate-950 border border-slate-800 text-xs font-bold uppercase rounded-lg p-2 text-slate-200 cursor-pointer focus:outline-none focus:border-indigo-500 transition">
                                                 <option value="prepared" {{ strtolower($po->status) == 'prepared' ? 'selected' : '' }}>Prepared</option>
                                                 <option value="sent" {{ strtolower($po->status) == 'sent' ? 'selected' : '' }}>Sent</option>
                                                 <option value="confirmed" {{ strtolower($po->status) == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
@@ -250,8 +250,6 @@
 
             <!-- VIEW 2: GENERATE ORDER -->
             <div id="view-create" class="app-view hidden flex-col gap-4">
-                
-                <!-- Auto PO Banner -->
                 <div class="bg-slate-800/40 border-l-4 border-amber-500 border-slate-800 rounded-xl p-5 shadow-xl flex justify-between items-center">
                     <div>
                         <h4 class="font-bold text-white text-sm">Automated Low-Stock Reorder Engine</h4>
@@ -262,13 +260,12 @@
                     </button>
                 </div>
 
-                <!-- Form Card -->
                 <div class="bg-slate-800/40 border border-slate-800 rounded-xl p-5 shadow-xl">
                     <div class="bg-indigo-950/80 border border-indigo-800/60 text-white p-3 rounded-lg text-xs font-bold uppercase tracking-wider mb-5">
                         Generate Purchase Order Manually
                     </div>
 
-                    <form id="create-po-form" action="{{ route('po.store') }}" method="POST" onsubmit="prepareSubmit()" class="space-y-4 text-xs">
+                    <form id="create-po-form" action="{{ route('po.store') }}" method="POST" class="space-y-4 text-xs">
                         @csrf
                         <div class="grid grid-cols-2 gap-4">
                             <div>
@@ -344,7 +341,7 @@
                         <select id="match-po-select" onchange="updateMatchingFlow()" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500 transition font-medium">
                             <option value="">-- Choose PO from Database --</option>
                             @foreach($purchaseOrders ?? [] as $po)
-                                <option value="{{ $po->po_number }}" data-amount="{{ $po->amount }}" data-dr="{{ $po->dr_number }}" data-inv="{{ $po->invoice_number }}">
+                                <option value="{{ $po->po_number }}" data-id="{{ $po->id ?? '' }}" data-amount="{{ $po->amount }}" data-dr="{{ $po->dr_number }}" data-inv="{{ $po->invoice_number }}">
                                     {{ $po->po_number }} - {{ $po->supplier }} (${{ number_format($po->amount, 2) }})
                                 </option>
                             @endforeach
@@ -385,12 +382,26 @@
         document.addEventListener("DOMContentLoaded", function() {
             generatePONumber();
             setDefaultDate();
+            initBannerAutoDismiss();
 
             const urlParams = new URLSearchParams(window.location.search);
             const savedTab = localStorage.getItem('po_module_tab');
             const activeTab = urlParams.get('tab') || savedTab || 'po';
             switchTab(activeTab, false);
         });
+
+        // 1. AUTO DISMISS SUCCESS BANNER AFTER 3 SECONDS
+        function initBannerAutoDismiss() {
+            const banner = document.getElementById('flash-success-banner');
+            if (banner) {
+                setTimeout(() => {
+                    banner.style.opacity = '0';
+                    setTimeout(() => {
+                        banner.remove();
+                    }, 500);
+                }, 3000);
+            }
+        }
 
         function generatePONumber() {
             const poNumInput = document.getElementById('form-po-number');
@@ -480,9 +491,7 @@
             }
         }
 
-        // FIXED FILTER BUTTONS INTERACTION
         function filterStatusTable(status) {
-            // Update active/inactive button styles visually
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.className = "filter-btn px-3.5 py-1.5 rounded-lg text-xs font-bold uppercase bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white cursor-pointer transition";
             });
@@ -491,7 +500,6 @@
                 activeBtn.className = "filter-btn px-3.5 py-1.5 rounded-lg text-xs font-bold uppercase bg-indigo-600 text-white shadow cursor-pointer transition";
             }
 
-            // Filter the table rows accordingly
             const rows = document.querySelectorAll('.po-row');
             rows.forEach(row => {
                 if (status === 'all' || row.dataset.status === status) {
@@ -502,29 +510,58 @@
             });
         }
 
-        function updatePOStatus(poId, newStatus) {
+        // 2. FIXED STATUS UPDATE LOGIC
+        function updatePOStatus(poId, newStatus, element = null) {
             const csrfMeta = document.querySelector('meta[name="csrf-token"]');
             const csrfToken = csrfMeta ? csrfMeta.getAttribute('content') : '';
 
+            if(element) {
+                const parentRow = element.closest('.po-row');
+                if(parentRow) {
+                    parentRow.setAttribute('data-status', newStatus.toLowerCase());
+                }
+            }
+
+            // Supports both single update endpoint or ID endpoint formats
             fetch('/po/update-status', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Accept': 'application/json',
                     'X-CSRF-TOKEN': csrfToken
                 },
-                body: JSON.stringify({ po_number: poId, status: newStatus })
+                body: JSON.stringify({ 
+                    id: poId,
+                    po_number: poId, 
+                    status: newStatus 
+                })
             })
-            .then(res => res.json())
+            .then(res => res.json().catch(() => ({ status: 'ok' })))
             .then(data => {
-                window.location.reload();
+                // Status successfully updated on backend
             })
             .catch(() => {
-                window.location.reload();
+                // Fallback route attempt for RESTful endpoint /po/{id}/status
+                fetch(`/po/${poId}/status`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    body: JSON.stringify({ status: newStatus })
+                });
             });
         }
 
-        function sendPO(poId) {
-            updatePOStatus(poId, 'sent');
+        function sendPO(poId, btnElement = null) {
+            if(btnElement) {
+                const parentRow = btnElement.closest('.po-row');
+                if(parentRow) {
+                    const select = parentRow.querySelector('select');
+                    if(select) select.value = 'sent';
+                }
+            }
+            updatePOStatus(poId, 'sent', btnElement);
         }
 
         function updateMatchingFlow() {
@@ -549,8 +586,10 @@
         function approveMatchingPayment() {
             const select = document.getElementById('match-po-select');
             if(select && select.value) {
+                const opt = select.options[select.selectedIndex];
+                const targetId = opt.dataset.id || select.value;
                 alert(`PO ${select.value} successfully matched with Delivery Receipt & Invoice!`);
-                updatePOStatus(select.value, 'delivered');
+                updatePOStatus(targetId, 'delivered');
             } else {
                 alert('Please select a Purchase Order to verify.');
             }

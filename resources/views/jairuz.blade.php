@@ -167,7 +167,7 @@
         .workspace {
             flex: 1;
             background: linear-gradient(rgba(30, 17, 69, 0.85), rgba(30, 17, 69, 0.95)), 
-                        url('https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=1000') no-repeat center center;
+                        no-repeat center center;
             background-size: cover;
             display: flex;
             justify-content: center;

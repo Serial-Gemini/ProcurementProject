@@ -13,8 +13,8 @@ class PurchaseOrderController extends Controller
     {
         $purchaseOrders = PurchaseOrder::with(['requisition', 'supplier'])->get();
         
-        // FIXED: Changed from 'Approved' to fetch all requisitions so 'Pending' ones show up in your dropdown
-        $requisitions = Requisition::all(); 
+        // ONLY fetch requisitions that have been approved by a manager
+        $requisitions = Requisition::where('status', 'Approved')->get(); 
         
         // Keep active suppliers
         $suppliers = Supplier::where('status', 'Active')->get();
@@ -23,20 +23,22 @@ class PurchaseOrderController extends Controller
     }
 
     public function store(Request $request)
-{
-    $request->validate([
-        'po_number' => 'required|string',
-        'supplier'  => 'required|string',
-        'amount'    => 'required|numeric',
-    ]);
+    {
+        $request->validate([
+            'po_number'      => 'required|string',
+            'supplier'       => 'required|string',
+            'amount'         => 'required|numeric',
+            'requisition_id' => 'required|exists:requisitions,id',
+        ]);
 
-    PurchaseOrder::create([
-        'po_number' => $request->po_number,
-        'supplier'  => $request->supplier,
-        'amount'    => $request->amount,
-        'status'    => 'prepared',
-    ]);
+        PurchaseOrder::create([
+            'po_number'      => $request->po_number,
+            'supplier'       => $request->supplier,
+            'amount'         => $request->amount,
+            'requisition_id' => $request->requisition_id,
+            'status'         => 'prepared',
+        ]);
 
-    return redirect()->route('po.index')->with('success', 'Purchase Order generated and saved successfully!');
-}
+        return redirect()->route('po.index')->with('success', 'Purchase Order generated and saved successfully!');
+    }
 }
